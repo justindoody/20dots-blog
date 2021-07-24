@@ -17,5 +17,6 @@ test:
   database: 20dots_development_test
 
 production:
-  adapter: postgresql
-  url: <%= ENV['DATABASE_URL'] %>
+  database: 20dots_production
+  username: 20dots
+  password: <%= ENV['20DOTS_DATABASE_PASSWORD'] %>
