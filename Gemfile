@@ -7,11 +7,8 @@ gem 'envied', '~> 0.9'
 
 ### Assets
 gem 'webpacker'
-gem 'sass-rails', '~> 5.0.6'
 gem 'sprockets', '~> 3.0'
 gem 'haml', '~> 5.2'
-gem 'autoprefixer-rails'
-gem 'pure-css-rails'
 gem 'bootsnap', require: false
 
 ### General

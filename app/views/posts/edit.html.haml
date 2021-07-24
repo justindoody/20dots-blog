@@ -4,7 +4,7 @@
   = render 'show_cover'
   #test.h-full.flex.flex-wrap.content-center{ 'data-parallax-header-target' => 'titleWrapper' }
     .relative.px-9.py-3.md:pl-sidebar.md:px-0{ 'data-parallax-header-target' => 'title' }
-      .date.text-white.font-thin.text-2xl.text-shadow
+      .text-white.font-thin.text-2xl.text-shadow
         = @post.published_at&.strftime('%B %d, %Y')
       %div{ 'data-controller' => 'post-title', 'data-post-title-url-value' => post_title_path, 'data-post-title-fade-in-class' => 'opacity-40', 'data-post-title-fade-out-class' => 'opacity-0' }
         %h1.text-white.font-sidebar.text-7xl.font-semibold.text-shadow.pt-2.outline-none{ contenteditable: 'true', 'data-action' => 'input->post-title#saveTitle' }
@@ -46,21 +46,5 @@
 
         .font-sans.fixed.top-2.left-4.text-white.text-sm.bg-black.opacity-0.py-2.px-3.transition-all.duration-1000{ 'data-post-target' => 'saveMessage' }
           Saved
-
-  -# #insert-plugin
-  -#   %i.fa.fa-plus-circle.fa-fw.insert-click
-  -#   = form_for(@image, url: post_images_path(@post.id), remote: true, html: { multipart: true, class: "edit_post post_image_form" }) do |f|
-  -#     = f.file_field :name, accept: 'image/jpeg,image/gif,image/png'
-  -#     %i.fa.fa-camera.fa-fw.hide.insert-option#insert-image
-  -#     = f.submit 'Add Image', id: 'insert-plugin-image-button'
-
-  -#   %i.fa.fa-link.fa-fw.hide.insert-option#insert-link
-
-  -# .image-edit-container
-  -#   %i.fa.fa-align-left.fa-fw.image-edit
-  -#   %i.fa.fa-align-center.fa-fw.image-edit
-  -#   %i.fa.fa-align-right.fa-fw.image-edit
-  -#   %i.fa.fa-expand.fa-fw.image-edit
-  -#   %i.fa.fa-trash.fa-fw.image-edit
 
 = link_to ("<i class='fa fa-sign-out fa-fw'></i> logout").html_safe, logout_sessions_path, id: 'logout_button', class: 'fixed right-0 top-0 py-3 px-5 bg-white text-black font-light opacity-30 hover:opacity-50'

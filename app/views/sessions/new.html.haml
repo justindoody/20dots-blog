@@ -2,11 +2,10 @@
 
 .fixed.bg-black.opacity-80.flex.flex-row.justify-center.-inset-x-0.z-10.p-5
   - flash.each do |message_type, message|
-    %div{ class: "alert alert-#{message_type}" }
+    .font-light.text-white.py-3.px-4
       = message
 
   = form_for(:session, url: login_sessions_path) do |f|
-
     = f.password_field :password, placeholder: 'Password', class: 'p-3 mr-3 focus:outline-none'
 
     = f.submit 'Log In', class: 'p-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600'

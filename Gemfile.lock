@@ -45,8 +45,6 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (9.0.0)
-    autoprefixer-rails (10.2.4.0)
-      execjs
     bcrypt (3.1.16)
     bootsnap (1.7.1)
       msgpack (~> 1.0)
@@ -87,7 +85,6 @@ GEM
       thor (~> 0.15)
     erubi (1.10.0)
     erubis (2.7.0)
-    execjs (2.7.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.1.0)
@@ -161,7 +158,6 @@ GEM
     public_suffix (4.0.6)
     puma (5.2.1)
       nio4r (~> 2.0)
-    pure-css-rails (0.6.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-proxy (0.6.5)
@@ -234,17 +230,6 @@ GEM
     rspec-support (3.10.2)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.0)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -283,7 +268,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  autoprefixer-rails
   bcrypt (~> 3.1.7)
   bootsnap
   builder
@@ -301,13 +285,11 @@ DEPENDENCIES
   pg (~> 1.2.3)
   pry-rails (~> 0.3)
   puma (~> 5.0)
-  pure-css-rails
   rails (~> 5.2.0)
   rails-controller-testing
   rails_best_practices
   remotipart (~> 1.4)
   rspec-rails (~> 4.0)
-  sass-rails (~> 5.0.6)
   selenium-webdriver (~> 3.142)
   spring
   spring-commands-rspec

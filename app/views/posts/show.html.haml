@@ -1,10 +1,10 @@
 - provide(:title, "| #{@post.title}")
 
-.relative.h-halfscreen.overflow-hidden.flex.flex-wrap.items-end{ 'data-controller' => 'parallax-header', 'data-action' => 'scroll@window->parallax-header#adjustOpacity scroll@window->parallax-header#adjustTitleHeight'}
+.relative.h-halfscreen.overflow-hidden.flex.flex-wrap.items-end.bg-gradient-to-r.from-green-400.to-blue-700{ 'data-controller' => 'parallax-header', 'data-action' => 'scroll@window->parallax-header#adjustOpacity scroll@window->parallax-header#adjustTitleHeight'}
   = render 'show_cover'
   #test.h-full.flex.flex-wrap.content-center{ 'data-parallax-header-target' => 'titleWrapper' }
     .relative.px-9.py-3.md:pl-sidebar.md:px-0{ 'data-parallax-header-target' => 'title' }
-      .date.text-white.font-thin.text-2xl.text-shadow
+      .text-white.font-thin.text-2xl.text-shadow
         = @post.published_at.strftime('%B %d, %Y')
       %h1.text-white.font-sidebar.text-7xl.font-semibold.text-shadow.pt-2
         = @post.title
@@ -13,7 +13,7 @@
   = render 'layouts/posts_sidebar'
 
   .flex-grow.pt-9.px-9.md:px-0
-    .post-body
+    .post-body.max-w-4xl
       -# Display updated text if updated since published
       -# Excludes edits on the day of publishing
       - if @updated_since_published

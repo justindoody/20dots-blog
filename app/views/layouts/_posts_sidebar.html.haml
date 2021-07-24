@@ -1,10 +1,8 @@
 .md:flex.flex-none.sidebar-width{ 'data-controller' => 'sticky-sidebar', 'data-action' => 'scroll@window->sticky-sidebar#onScroll' }
   %div.p-9
-    = link_to '', feed_path, id: 'rss_icon', onclick: "ga('send', 'event', 'button', 'click', 'rss', 1);"
-
     .flex.flex-row.flex-wrap.gap-x-6.gap-y-8.hidden.md:block
       .flex-initial.max-width-xs.w-36.md:w-44
-        = image_tag('face_circle.jpg', id: 'face_circle')
+        = image_tag('face_circle.jpg')
 
       .self-center.font-sidebar.pt-8.text-7xl.font-semibold.text-gray-800.md:text-4xl Hi, I'm Justin.
 
@@ -20,3 +18,7 @@
         %a.button-blue{ 'data-action' => 'click->contact#showModal', href: '', onclick: "ga('send', 'event', 'button', 'click', 'contact', 1);" }
           %i.fa.fa-envelope
           contact
+
+    = link_to(feed_path, onclick: "ga('send', 'event', 'button', 'click', 'rss', 1);") do
+      %svg.hidden.md:block.h-12.w-12.text-gray-500.mt-8.hover:text-red-400{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24", :xmlns => "http://www.w3.org/2000/svg"}
+        %path.text-red{:d => "M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}

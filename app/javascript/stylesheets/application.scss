@@ -18,32 +18,37 @@ $font-headers: "Helvetica Neue", "Lucida Grande", "Lucida Sans Unicode", "Lucida
     }
 }
 
-.post-body {
-    p {
-        @apply py-5;
-    }
+@import "./posts";
 
-    h1 {
-        @apply text-5xl;
-    }
-
-    h3, h4 {
-        font-family: $font-headers;
-        @apply pb-3 text-4xl;
-    }
-
-    h3 {
-        @apply text-gray-800 font-bold;
-    }
-
-    h4 {
-        @apply text-gray-600 font-light;
-    }
-
-    blockquote {
-        border-left: 5px solid $medium-blue;
-        @apply italic pl-5 my-5;
-    }
+.link-blue {
+    @apply underline;
+    color: #67b8ff;
 }
 
-@import "./test";
+.link-blue:hover {
+  color: #3c85c5
+}
+
+.button-blue {
+    @apply  bg-white border-solid border-4 px-4 py-1.5 rounded-3xl font-sidebar font-semibold border-gray-100 hover:border-blue-300 hover:text-blue-500 text-gray-500 transition duration-500 ease-in-out;
+}
+
+.text-shadow {
+    text-shadow: 0 0 5px rgb(66, 66, 66);
+}
+
+.blur {
+    filter: blur(12px);
+}
+
+.h-halfscreen {
+    height: 50vh;
+}
+
+.modal-background {
+    background-color: rgba(0,0,0,.4);
+}
+.modal-width {
+    width: calc(100%-40px);
+    max-width: 440px;
+}
