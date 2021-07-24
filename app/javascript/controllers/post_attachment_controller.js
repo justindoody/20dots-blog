@@ -38,8 +38,8 @@ export default class extends Controller {
 
             if (xhr.status == 200) {
                 var attributes = {
-                    url: `http://blog.localhost${url}`,
-                    href: `http://blog.localhost${url}?content-disposition=attachment`
+                    url: `${url}`,
+                    href: `${url}?content-disposition=attachment`
                 }
                 successCallback(attributes)
             }
