@@ -1,4 +1,6 @@
-describe Post do
+require 'rails_helper'
+
+RSpec.describe Post, type: :model do
   it '.create_default' do
     post = build :default_post
     expect(Post.create_default).to be_instance_of(Post)

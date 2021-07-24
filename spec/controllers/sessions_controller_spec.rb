@@ -1,4 +1,6 @@
-describe SessionsController do
+require 'rails_helper'
+
+RSpec.describe SessionsController do
   describe 'GET new' do
     before { get :new }
 

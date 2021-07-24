@@ -1,4 +1,6 @@
-describe 'admin processes', type: :feature, js: true do
+require 'rails_helper'
+
+RSpec.describe 'admin processes', type: :system do
   def login_as_admin(password: 'password')
     visit '/admin'
     fill_in 'Password', with: password

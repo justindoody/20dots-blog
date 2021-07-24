@@ -14,7 +14,7 @@
           Saved
 
   .absolute.left-3.bottom-3{ 'data-controller' => 'cover-photo-upload' }
-    = form_for(@post, url: post_path(@post.id), html: { multipart: true, class: "cover_form", 'data-cover-photo-upload-target' => 'form' }) do |f|
+    = form_for(@post, url: post_path(@post.id), html: { multipart: true, 'data-cover-photo-upload-target' => 'form' }) do |f|
 
       %label{ for: 'cover-photo-input' }
         %i.fa.fa-camera.text-white.text-4xl.opacity-50.hover:opacity-70

@@ -21,6 +21,19 @@ services:
       - "traefik.http.routers.20dots_web.entrypoints=web"
       # Tell Traefik to use the port 3000 to connect to `web`
       - traefik.http.services.20dots_web.loadbalancer.server.port=3000
+    depends_on:
+      - 'database'
+
+  database:
+    image: postgres:13.2-alpine
+    restart: always
+    ports:
+      # Make accessible on host on non-conflicting port
+      - "5450:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
 
 networks:
   default:

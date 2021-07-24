@@ -8,6 +8,8 @@ class Post < ApplicationRecord
   # Using CarrierWave gem to handle image uploads for posts
   mount_uploader :cover_photo, CoverPhotoUploader
 
+  scope :published, -> { where(draft: false) }
+
   class << self
     def create_default
       create(title: "A New Post", post: "Start typing...")
