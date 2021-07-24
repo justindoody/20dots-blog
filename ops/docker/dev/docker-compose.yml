@@ -1,0 +1,28 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ops/docker/dev/Dockerfile
+    command: bash -c "bundle exec rails server -p 3000 -b '0.0.0.0'"
+    environment:
+      # Make it easy to use `rails credentials:edit`
+      EDITOR: nano
+      WEBPACKER_DEV_SERVER_HOST: '0.0.0.0'
+    volumes:
+      - .:/code
+      # don't mount tmp directory
+      - /code/tmp
+    ports:
+      - "3000:3000"
+      # For webpack-dev-server
+      - "3035:3035"
+    labels:
+      - "traefik.http.routers.20dots_web.rule=Host(`20dots.localhost`)"
+      - "traefik.http.routers.20dots_web.entrypoints=web"
+      # Tell Traefik to use the port 3000 to connect to `web`
+      - traefik.http.services.20dots_web.loadbalancer.server.port=3000
+
+networks:
+  default:
+    external:
+      name: traefik

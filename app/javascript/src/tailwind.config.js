@@ -1,4 +1,7 @@
 module.exports = {
+    purge: [
+        './app/views/**/*.html.haml'
+    ],
     theme: {
         fontFamily: {
             'sidebar': ['"Avenir Next"', 'ui-sans-serif', 'system-ui'],

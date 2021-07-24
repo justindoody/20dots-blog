@@ -7,10 +7,17 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+
+
+import Turbolinks from "turbolinks"
+
+require("stylesheets/application.scss")
+
 require("rails-ujs").start()
-require("turbolinks").start()
 
 import 'trix/dist/trix.css';
 import 'trix/dist/trix.js';
+
+Turbolinks.start()
 
 import "controllers"
