@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'dotenv-rails', '~> 2.7'
 gem 'rails', '~> 6.0.0'
 gem 'pg', '~> 1.2'
 gem 'puma', '~> 5.0'
-gem 'envied', '~> 0.9'
 
 ### Assets
 gem 'webpacker'
