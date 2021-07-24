@@ -18,5 +18,3 @@
 .project
 .DS_Store
 
-# Ignore sensitive infrastructure items
-/ops/*

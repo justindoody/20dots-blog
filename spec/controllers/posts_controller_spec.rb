@@ -1,4 +1,6 @@
-describe PostsController do
+require 'rails_helper'
+
+RSpec.describe PostsController do
   let(:login) { allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true) }
 
   before(:each) do
@@ -72,7 +74,7 @@ describe PostsController do
       end
 
       it 'creates a new post' do
-        expect(assigns(:post)).not_to be_nil
+        expect(Post.count).to eq(3)
       end
     end
 
@@ -175,14 +177,6 @@ describe PostsController do
       before(:each) do
         login
         post :update, params: { id: @post2.id, post: {title: "Such Post", post: "Really good."} }
-      end
-
-      it 'sets a new title' do
-        expect(assigns(:post).title).to eq "Such Post"
-      end
-
-      it 'sets a new friendly id' do
-        expect(assigns(:post).slug).to eq "such-post"
       end
 
       it 'updates the body content' do

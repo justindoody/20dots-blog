@@ -4,17 +4,16 @@ class PostsController < ApplicationController
   before_action :load_post, only: [:destroy, :edit, :update, :publish, :unpublish]
 
   def index
-    @posts = Post.where(draft: false).order(published_at: :desc)
+    @posts = Post.published.order(published_at: :desc)
   end
 
   def show
     @post = Post.friendly.find(params[:id])
     @updated_since_published = @post.updated_since_published?
-    @body_class = 'post'
   end
 
   def new
-    @post = Post.create_default
+    Post.create_default
     redirect_to root_url
   end
 
@@ -25,12 +24,10 @@ class PostsController < ApplicationController
 
   def edit
     @image = Image.new
-    @body_class = 'post'
   end
 
   def update
-    @post.slug = nil
-    if @post.update_attributes(post_params)
+    if @post.update!(post_params)
       respond_to do |format|
         format.html { redirect_to edit_post_path(@post.id) }
         format.js
@@ -55,7 +52,7 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.fetch(:post, {}).permit(:post, :title, :cover_photo, :post_images)
+      params.require(:post).permit(:post, :cover_photo, :post_images)
     end
 
     def load_post

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get :admin, on: :collection
   end
 
+  resources :post_titles, only: [:update]
+
   resources :sessions, only: :none, path: '' do
     collection do
       get :logout
