@@ -1,9 +1,7 @@
 describe 'admin processes', type: :feature, js: true do
   def login_as_admin(password: 'password')
     visit '/admin'
-    within('#login_container') do
-      fill_in 'Password', with: password
-    end
+    fill_in 'Password', with: password
     click_button 'Log In'
   end
 
@@ -22,7 +20,7 @@ describe 'admin processes', type: :feature, js: true do
       expect(page).to have_content 'logout'
 
       post_count = Post.count
-      click_link 'new_post_button'
+      click_link 'new post'
       expect(page).to have_content 'A New Post'
       expect(Post.count).to eq post_count + 1
     end
