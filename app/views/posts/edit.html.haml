@@ -8,8 +8,9 @@
     .relative.px-9.py-3.md:pl-sidebar.md:px-0{ 'data-parallax-header-target' => 'title' }
       .date.text-white.font-thin.text-2xl.text-shadow
         = @post.published_at&.strftime('%B %d, %Y')
-      %h1.text-white.font-sidebar.text-7xl.font-semibold.text-shadow.pt-2{ contenteditable: 'true' }
-        = @post.title
+      %div{ 'data-controller' => 'post-title', 'data-post-title-url-value' => post_title_path }
+        %h1.text-white.font-sidebar.text-7xl.font-semibold.text-shadow.pt-2.outline-none{ contenteditable: 'true', 'data-action' => 'input->post-title#saveTitle' }
+          = @post.title
 
   .absolute.left-3.bottom-3{ 'data-controller' => 'cover-photo-upload' }
     = form_for(@post, url: post_path(@post.id), html: { multipart: true, class: "cover_form", 'data-cover-photo-upload-target' => 'form' }) do |f|
