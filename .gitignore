@@ -57,3 +57,5 @@ yarn-debug.log*
 .yarn-integrity
 
 /coverage/*
+
+/config/credentials/test.key
