@@ -12,7 +12,7 @@
         %h1.text-white.font-sidebar.text-7xl.font-semibold.text-shadow.pt-2.outline-none{ contenteditable: 'true', 'data-action' => 'input->post-title#saveTitle' }
           = @post.title
 
-        #save.fixed.top-2.left-4.text-white.text-sm.bg-black.opacity-0.py-2.px-3.transition-all.duration-1000{ 'data-post-title-target' => 'saveMessage'}
+        .fixed.top-2.left-4.text-white.text-sm.bg-black.opacity-0.py-2.px-3.transition-all.duration-1000{ 'data-post-title-target' => 'saveMessage'}
           Saved
 
   .absolute.left-3.bottom-3{ 'data-controller' => 'cover-photo-upload' }
@@ -39,12 +39,15 @@
 
         = link_to ("<i class='fa fa-trash fa-fw'></i> Delete").html_safe, post_path(@post.id), method: "delete", class: 'text-white py-2 px-5 mr-1 bg-red-500 hover:bg-red-600 rounded-lg'
 
-    .font-serif.text-xl.text-gray-900.leading-loose.md:pr-9{ data: { controller: 'post' } }
+    .font-serif.text-xl.text-gray-900.leading-loose.md:pr-9{ data: { controller: 'post' }, 'data-post-fade-in-class' => 'opacity-40', 'data-post-fade-out-class' => 'opacity-0' }
       = form_for(@post, url: post_path(@post.id), remote: true, authenticity_token: true, html: { 'data-post-target' => 'form' }) do |f|
         = f.text_field :post, { id: 'post-data', value: @post.post.html_safe, type: 'hidden', 'data-post-target' => 'content' }
         = f.text_field :title, { type: 'hidden' }
 
         %trix-editor{ input: 'post-data', 'data-controller' => 'post-attachment', 'data-action' => 'trix-attachment-add@document->post-attachment#upload input->post#saveMe', 'data-post-attachment-url-value' => post_images_path(@post.id) }
+
+      .font-sans.fixed.top-2.left-4.text-white.text-sm.bg-black.opacity-0.py-2.px-3.transition-all.duration-1000{ 'data-post-target' => 'saveMessage' }
+        Saved
 
   -# #insert-plugin
   -#   %i.fa.fa-plus-circle.fa-fw.insert-click
