@@ -8,9 +8,12 @@
     .relative.px-9.py-3.md:pl-sidebar.md:px-0{ 'data-parallax-header-target' => 'title' }
       .date.text-white.font-thin.text-2xl.text-shadow
         = @post.published_at&.strftime('%B %d, %Y')
-      %div{ 'data-controller' => 'post-title', 'data-post-title-url-value' => post_title_path }
+      %div{ 'data-controller' => 'post-title', 'data-post-title-url-value' => post_title_path, 'data-post-title-fade-in-class' => 'opacity-40', 'data-post-title-fade-out-class' => 'opacity-0' }
         %h1.text-white.font-sidebar.text-7xl.font-semibold.text-shadow.pt-2.outline-none{ contenteditable: 'true', 'data-action' => 'input->post-title#saveTitle' }
           = @post.title
+
+        #save.fixed.top-2.left-4.text-white.text-sm.bg-black.opacity-0.py-2.px-3.transition-all.duration-1000{ 'data-post-title-target' => 'saveMessage'}
+          Saved
 
   .absolute.left-3.bottom-3{ 'data-controller' => 'cover-photo-upload' }
     = form_for(@post, url: post_path(@post.id), html: { multipart: true, class: "cover_form", 'data-cover-photo-upload-target' => 'form' }) do |f|
@@ -58,8 +61,5 @@
   -#   %i.fa.fa-align-right.fa-fw.image-edit
   -#   %i.fa.fa-expand.fa-fw.image-edit
   -#   %i.fa.fa-trash.fa-fw.image-edit
-
-#save
-  Saved
 
 = link_to ("<i class='fa fa-sign-out fa-fw'></i> logout").html_safe, logout_sessions_path, id: 'logout_button', class: 'fixed right-0 top-0 py-3 px-5 bg-white text-black font-light opacity-30 hover:opacity-50'

@@ -18,6 +18,5 @@ $(document).on 'turbolinks:click', ->
 window.Views ?= {}
 class Views.Application
   render: ->
-    ViewConcern.Contact.enable()
 
   cleanup: ->
