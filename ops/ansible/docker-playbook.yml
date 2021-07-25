@@ -57,12 +57,12 @@
         "{{ docker_network_name }}.{{ docker_network_name }}-certificates": "true"
       labels_state: replace
 
-- name: generate a deployment ssh key
+- name: Add deployment key to authorized keys
   hosts: swarm_managers
   vars_files:
     - vars/default.yml
   roles:
-    - deployment-ssh-key
+    - add-deployment-ssh-key
 
 - name: add workers to the swarm
   hosts: swarm_workers
