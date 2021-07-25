@@ -1,0 +1,7 @@
+---
+- name: Add Workers to the Swarm
+  community.docker.docker_swarm:
+    state: join
+    join_token: "{{ hostvars[item]['swarm_manager']['swarm_facts']['JoinTokens']['Worker'] }}"
+    remote_addrs: [ "{{ hostvars[item]['vpc_ip'] }}:2377" ]
+  with_items: "{{ lead_server }}"

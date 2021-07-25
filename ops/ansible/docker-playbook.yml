@@ -1,51 +1,84 @@
-# Initial docker config
 ---
-- hosts: all
+- name: setup pre-requisites
+  hosts: all
   become: true
+  become_user: root
+  roles:
+    - configure-hosts-file
+
+- name: install docker
+  hosts: swarmservers
+  roles:
+    - docker-installation
+  become: true
+  become_user: root
+
+# Install docker python package so we can use ansible helpers
+- hosts: swarmservers
+  become: true
+  become_user: root
+  tasks:
+  - name: install pip3
+    apt: name=python3-pip state=present
+
+  - name: Install docker python package
+    pip:
+      name: docker
+
+- name: add user to docker group
+  hosts: swarmservers
   vars_files:
     - vars/default.yml
+  roles:
+    - add-user-to-docker-group
 
+- name: initialize docker swarm
+  hosts: swarm_managers
+  roles:
+    - docker-swarm-init
+
+- hosts: "{{ lead_server }}"
+  vars_files:
+    - vars/default.yml
   tasks:
-    - name: Install Prerequisites
-      apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
+  - name: Create a network
+    community.docker.docker_network:
+      name: "{{ docker_network_name }}"
+      driver: overlay
 
-    - name: Install required system packages
-      apt:
-        name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
-        update_cache: true
-        state: latest
+- hosts: "{{ lead_server }}"
+  vars_files:
+    - vars/default.yml
+  tasks:
+  - name: Add traefik label
+    community.docker.docker_node:
+      hostname: "{{ ansible_hostname }}"
+      labels:
+        "{{ docker_network_name }}.{{ docker_network_name }}-certificates": "true"
+      labels_state: replace
 
-    - name: Add Docker GPG apt Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+- name: generate a deployment ssh key
+  hosts: swarm_managers
+  vars_files:
+    - vars/default.yml
+  roles:
+    - deployment-ssh-key
 
-    - name: Add Docker Repository
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu focal stable
-        state: present
+- name: add workers to the swarm
+  hosts: swarm_workers
+  vars_files:
+    - vars/default.yml
+  roles:
+    - docker-swarm-add-worker
 
-    - name: Update apt and install docker-ce
-      apt: update_cache=yes name=docker-ce state=latest
+- hosts: "{{ lead_server }}"
+  vars_files:
+    - vars/default.yml
+    - vars/secrets.yml
+  tasks:
+  - name: Add docker secrets
+    community.docker.docker_secret:
+      name: "{{ item['name'] }}"
+      data: "{{ item['value'] }}"
+    with_items: "{{ docker_secrets }}"
 
-    - name: Check current docker-compose version
-      command: docker-compose --version
-      register: docker_compose_vsn
-      changed_when: false
-      failed_when: false
-      check_mode: no
-
-    - set_fact:
-        docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
-      when:
-        - docker_compose_vsn.stdout is defined
-
-    - name: Install or upgrade docker-compose
-      get_url:
-        url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
-        dest: /usr/local/bin/docker-compose
-        mode: 'a+x'
-        force: yes
-      when: >
-        docker_compose_current_version is not defined
-        or docker_compose_current_version is version(docker_compose_version, '<')

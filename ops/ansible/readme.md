@@ -1,17 +1,27 @@
-The following are needed in `./templates/default.yml`:
-```sh
+## Setup
+
+You need to add `./vars/secrets.yml` with any needed secrets:
+```yml
 ---
-user: <user>
-copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/<key>.pub') }}"
-sys_packages: [ 'curl', 'git', 'ufw']
-volume_name: <name>
+docker_secrets: [{ name: "", value: "" }, { name: "", value: "" }]
 ```
 
-You also need to add `./hosts` with:
+You need to add `./hosts` with:
 ```sh
-XXX.XXX.X.XXX ansible_ssh_private_key_file=~/.ssh/<private-key>
+[swarmservers]
+server-1 ansible_host=XXX.XXX.XXX.XXX vpc_ip=XX.XXX.X.X
+server-2 ansible_host=XXX.XXX.XXX.XXX vpc_ip=XX.XXX.X.X
+
+[swarmservers:vars]
+ansible_ssh_private_key_file=~/.ssh/<private_key>
+
+[swarm_managers]
+server-1
+
+[swarm_workers]
+server-2
 ```
 
-Use the following to run the playbooks:
-`ansible-playbook initial-playbook.yml --inventory-file=./hosts -u root`
-`ansible-playbook docker-playbook.yml --inventory-file=./hosts -u <user>`
+## Running
+
+Running from within the `./ops/ansible` path see `make help` for various commands to run.

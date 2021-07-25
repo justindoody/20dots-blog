@@ -8,6 +8,10 @@ on:
     - 'ops/terraform/**'
     - 'spec/**'
 
+env:
+  DEPLOY_TARGET_URL: blog.20dots.com
+  DEPLOY_TARGET_USER: vita
+
 jobs:
   build:
     name: Build & Push Production Docker Image
@@ -58,3 +62,109 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  release_phase:
+    needs: build
+    name: Release Phase
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_CONFIG: $HOME/.docker
+    steps:
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: SSH Agent
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+      -
+        name: Setup SSH Known Hosts
+        run: |
+          mkdir -p -m 0700 ~/.ssh
+
+          echo "Add domain to known hosts"
+          ssh-keyscan -t rsa -p 22 ${{ env.DEPLOY_TARGET_URL }} > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+      -
+        name: Add docker production context
+        run: |
+          docker context create production \
+                 --docker host=ssh://{{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
+      -
+        name: Run release phase
+        run: |
+          container_id=$(docker --context production service ls --filter name=release_phase -q)
+
+          if [ -z "$container_id" ]; then
+            echo "== Release phase creating and running =="
+
+            docker --context production service create \
+                   --with-registry-auth \
+                   --name release_phase \
+                   --mode replicated-job  \
+                   --secret RAILS_MASTER_KEY \
+                   --secret DATABASE_URL \
+                   --env RAILS_MASTER_KEY_FILE=/run/secrets/RAILS_MASTER_KEY \
+                   --env DATABASE_URL_FILE=/run/secrets/DATABASE_URL \
+                   --env RAILS_LOG_TO_STDOUT=true \
+                   ghcr.io/justindoody/20dots-blog:${{ github.sha }} \
+                   ./bin/release
+
+          else
+            echo "== Release phase running =="
+
+            docker --context production service update \
+              --with-registry-auth \
+              --image ghcr.io/justindoody/20dots-blog:${{ github.sha }} \
+              release_phase
+          fi
+
+  deploy:
+    needs: [release_phase]
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_CONFIG: $HOME/.docker
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: SSH Agent
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+      -
+        name: Setup SSH Known Hosts
+        run: |
+          mkdir -p -m 0700 ~/.ssh
+
+          echo "Add domain to known hosts"
+          ssh-keyscan -t rsa -p 22 ${{ env.DEPLOY_TARGET_URL }} > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+      -
+        name: Add docker production context
+        run: |
+          docker context create production \
+                 --docker host=ssh://{{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
+      -
+        name: Deploy application services to swarm
+        run: |
+          docker --context production \
+                 stack deploy \
+                 --prune \
+                 --with-registry-auth \
+                 --compose-file ./ops/docker/prod/docker-stack.yml \
+                 20dots

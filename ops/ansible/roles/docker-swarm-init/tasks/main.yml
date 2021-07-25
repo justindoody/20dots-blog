@@ -1,0 +1,6 @@
+---
+- name: Initialize Docker Swarm
+  community.docker.docker_swarm:
+    advertise_addr: "{{ hostvars[inventory_hostname]['vpc_ip'] }}:2377"
+    state: present
+  register: swarm_manager

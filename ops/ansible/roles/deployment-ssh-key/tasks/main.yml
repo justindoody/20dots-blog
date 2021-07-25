@@ -1,0 +1,10 @@
+---
+- name: generate SSH key"
+  openssh_keypair:
+    path: "~/.ssh/deploy"
+    type: rsa
+    size: 4096
+    state: present
+    force: no
+  become: yes
+  become_user: "{{ user }}"
