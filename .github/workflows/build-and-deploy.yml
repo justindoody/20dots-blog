@@ -94,7 +94,7 @@ jobs:
         name: Add docker production context
         run: |
           docker context create production \
-                 --docker host=ssh://{{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
+                 --docker host=ssh://${{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
       -
         name: Run release phase
         run: |
@@ -158,7 +158,7 @@ jobs:
         name: Add docker production context
         run: |
           docker context create production \
-                 --docker host=ssh://{{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
+                 --docker host=ssh://${{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
       -
         name: Deploy application services to swarm
         run: |
