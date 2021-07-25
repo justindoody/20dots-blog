@@ -53,8 +53,7 @@
   - name: Add traefik label
     community.docker.docker_node:
       hostname: "{{ ansible_hostname }}"
-      labels:
-        "{{ docker_network_name }}.{{ docker_network_name }}-certificates": "true"
+      labels: '{ "{{ docker_network_name }}.{{ docker_network_name }}-certificates": "true" }'
       labels_state: replace
 
 - name: Add deployment key to authorized keys

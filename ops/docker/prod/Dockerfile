@@ -20,6 +20,10 @@ ENTRYPOINT ["entrypoint.sh"]
 
 WORKDIR $APP_PATH
 
+ENV RAILS_ENV=production
+ENV NODE_ENV=production
+ENV BUNDLE_WITHOUT=development:test
+
 COPY Gemfile* $APP_PATH/
 
 RUN bundle install --jobs 4
