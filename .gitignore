@@ -42,7 +42,8 @@
 /ops/terraform/terraform.tfstate
 /ops/terraform/terraform.tfstate.backup
 /ops/ansible/hosts
-/ops/ansible/vars/default.yml
+/ops/ansible/vars/secrets.yml
+
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

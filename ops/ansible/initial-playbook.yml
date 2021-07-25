@@ -61,6 +61,12 @@
         rule: allow
         name: OpenSSH
 
+    - name: UFW - Allow communication on VPC
+      ufw:
+        rule: allow
+        src: "{{ vpc_ip }}/20"
+        proto: tcp
+
     - name: UFW - Deny all other incoming traffic by default
       ufw:
         state: enabled
