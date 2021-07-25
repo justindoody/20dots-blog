@@ -1,0 +1,6 @@
+---
+- name: Add authorized deployment key
+  authorized_key:
+    user: "{{ user }}"
+    state: present
+    key: "{{ deployment_key }}"

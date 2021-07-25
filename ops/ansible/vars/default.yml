@@ -1,6 +1,7 @@
 ---
 user: vita
 copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/20dots.pub') }}"
+deployment_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/20dots_deploy.pub') }}"
 sys_packages: [ 'curl', 'git', 'ufw']
 vpc_ip: "10.108.0.0"
 # In case we have more than one swarm manager
