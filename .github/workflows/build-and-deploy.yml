@@ -9,7 +9,7 @@ on:
     - 'spec/**'
 
 env:
-  DEPLOY_TARGET_URL: blog.20dots.com
+  DEPLOY_TARGET: 144.126.251.68
   DEPLOY_TARGET_USER: vita
 
 jobs:
@@ -88,13 +88,13 @@ jobs:
           mkdir -p -m 0700 ~/.ssh
 
           echo "Add domain to known hosts"
-          ssh-keyscan -t rsa -p 22 ${{ env.DEPLOY_TARGET_URL }} > ~/.ssh/known_hosts
+          ssh-keyscan -t rsa -p 22 ${{ env.DEPLOY_TARGET }} > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
       -
         name: Add docker production context
         run: |
           docker context create production \
-                 --docker host=ssh://${{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
+                 --docker host=ssh://${{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET }}
       -
         name: Run release phase
         run: |
@@ -152,13 +152,13 @@ jobs:
           mkdir -p -m 0700 ~/.ssh
 
           echo "Add domain to known hosts"
-          ssh-keyscan -t rsa -p 22 ${{ env.DEPLOY_TARGET_URL }} > ~/.ssh/known_hosts
+          ssh-keyscan -t rsa -p 22 ${{ env.DEPLOY_TARGET }} > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
       -
         name: Add docker production context
         run: |
           docker context create production \
-                 --docker host=ssh://${{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET_URL }}
+                 --docker host=ssh://${{ env.DEPLOY_TARGET_USER }}@${{ env.DEPLOY_TARGET }}
       -
         name: Deploy application services to swarm
         run: |
