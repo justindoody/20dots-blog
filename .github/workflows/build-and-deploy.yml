@@ -111,7 +111,6 @@ jobs:
                    --secret DATABASE_URL \
                    --env RAILS_MASTER_KEY_FILE=/run/secrets/RAILS_MASTER_KEY \
                    --env DATABASE_URL_FILE=/run/secrets/DATABASE_URL \
-                   --env RAILS_LOG_TO_STDOUT=true \
                    ghcr.io/justindoody/20dots-blog:${{ github.sha }} \
                    ./bin/release
 

@@ -14,12 +14,12 @@ secrets:
 services:
   web:
     image: ghcr.io/justindoody/20dots-blog:${GITHUB_SHA}
+    init: true
     command: bundle exec rails server -p 3000 -b '0.0.0.0'
     environment:
       RAILS_ENV: production
       # No CDN for now.
       RAILS_SERVE_STATIC_FILES: 'true'
-      RAILS_LOG_TO_STDOUT: 'true'
       RAILS_MASTER_KEY_FILE: /run/secrets/RAILS_MASTER_KEY
       DATABASE_URL_FILE: /run/secrets/DATABASE_URL
     secrets:

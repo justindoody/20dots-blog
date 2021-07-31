@@ -17,6 +17,7 @@ gem 'builder' # RSS Feed
 gem 'carrierwave', '~> 2.0' # Image upload
 gem 'remotipart', '~> 1.4' # Allows async upload of files aka "multipart"
 gem 'mini_magick' # Image manipulation interface with ImageMagick
+gem 'lograge', '~> 0.11'
 
 group :development do
   gem 'spring'

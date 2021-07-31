@@ -80,10 +80,17 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  config.lograge.enabled = true
+  config.lograge.formatter = Lograge::Formatters::Json.new
+
+  config.lograge.custom_options = lambda do |event|
+    exceptions = %w(controller action format id)
+    {
+      params: event.payload[:params].except(*exceptions).to_json,
+      exception: event.payload[:exception]&.first,
+      request_id: event.payload[:headers]['action_dispatch.request_id'],
+      ip: event.payload[:headers][:REMOTE_ADDR]
+    }.compact
   end
 
   # Do not dump schema after migrations.
