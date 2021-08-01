@@ -80,6 +80,8 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
+  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+
   config.lograge.enabled = true
   config.lograge.formatter = Lograge::Formatters::Json.new
 
@@ -89,7 +91,7 @@ Rails.application.configure do
       params: event.payload[:params].except(*exceptions).to_json,
       exception: event.payload[:exception]&.first,
       request_id: event.payload[:headers]['action_dispatch.request_id'],
-      ip: event.payload[:headers][:REMOTE_ADDR]
+      ip: event.payload[:headers][:HTTP_CF_CONNECTING_IP]
     }.compact
   end
 
