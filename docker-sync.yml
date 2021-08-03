@@ -6,5 +6,10 @@ syncs:
       '.git',
       '.github',
       'ops/ansible',
-      'ops/terraform'
+      'ops/terraform',
+      'tmp',
+      '.docker-sync',
+      '.yarn/cache',
+      '.yarn/$$virtual',
+      'node_modules'
     ]

@@ -26,7 +26,7 @@ bash: #: Bash prompt on running web container
 
 bash_standalone: #: Bash prompt in new container
 	docker run \
-				 --volume $(shell pwd):/code:delegated \
+				 --volume blog-sync:/code2 \
 				 --interactive \
 				 --tty \
 				  $(IMAGE):latest entrypoint.sh bash
