@@ -57,6 +57,14 @@
 yarn-debug.log*
 .yarn-integrity
 
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
 /coverage/*
 
 /config/credentials/test.key

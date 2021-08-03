@@ -18,3 +18,7 @@
 .project
 .DS_Store
 
+.git
+.github
+ops/ansible
+ops/terraform
