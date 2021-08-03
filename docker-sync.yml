@@ -1,0 +1,10 @@
+version: "2"
+syncs:
+  blog-sync:
+    src: './'
+    sync_excludes: [
+      '.git',
+      '.github',
+      'ops/ansible',
+      'ops/terraform'
+    ]

@@ -10,9 +10,7 @@ services:
       EDITOR: nano
       WEBPACKER_DEV_SERVER_HOST: '0.0.0.0'
     volumes:
-      - .:/code
-      # don't mount tmp directory
-      - /code/tmp
+      - blog-sync:/code:nocopy
     ports:
       - "3000:3000"
       # For webpack-dev-server
@@ -35,6 +33,10 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+
+volumes:
+  blog-sync:
+    external: true
 
 networks:
   default:
