@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-alpine3.13
+FROM ruby:3.0.3-alpine3.15
 
 ARG APP_PATH=/code
 ENV CHROMEDRIVER_PATH=/usr/bin/chromedriver
@@ -17,7 +17,8 @@ RUN apk add --update --no-cache \
         chromium \
         python3 \
         python3-dev \
-        py3-pip && \
+        py3-pip \
+        gcompat && \
       gem update bundler && \
       mkdir $APP_PATH
 
