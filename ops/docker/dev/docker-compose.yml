@@ -26,7 +26,7 @@ services:
       - 'database'
 
   database:
-    image: postgres:13.2-alpine
+    image: postgres:13.5-alpine3.15
     restart: always
     ports:
       # Make accessible on host on non-conflicting port

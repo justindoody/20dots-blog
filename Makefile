@@ -1,5 +1,6 @@
 .PHONY: up bash bash_standalone restart migrate help
 
+IMAGE ?= 20dots_web
 SERVICE ?= 20dots-web
 
 default: help
@@ -28,7 +29,7 @@ bash_standalone: #: Bash prompt in new container
 				 --volume $(shell pwd):/code:delegated \
 				 --interactive \
 				 --tty \
-				  $(SERVICE):latest entrypoint.sh bash
+				  $(IMAGE):latest entrypoint.sh bash
 
 restart: #: Restart rails server on running web container
 	docker exec $(SERVICE)-1 touch tmp/restart.txt

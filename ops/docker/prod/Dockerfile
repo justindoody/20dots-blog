@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-alpine3.13
+FROM ruby:3.0.3-alpine3.15
 
 ARG APP_PATH=/code
 
@@ -10,7 +10,8 @@ RUN apk add --update --no-cache \
         nodejs \
         yarn \
         postgresql-dev \
-        imagemagick && \
+        imagemagick \
+        gcompat && \
       gem update bundler && \
       mkdir $APP_PATH
 
