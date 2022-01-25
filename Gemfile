@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 6.0.0'
 gem 'pg', '~> 1.2'
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.5'
 
 ### Assets
 gem 'webpacker'
