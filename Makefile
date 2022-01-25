@@ -1,6 +1,6 @@
 .PHONY: up bash bash_standalone restart migrate help
 
-SERVICE ?= 20dots_web
+SERVICE ?= 20dots-web
 
 default: help
 
@@ -15,13 +15,13 @@ webpack_dev_server: #: Run webpack dev server
 	docker exec \
 				 --interactive \
 				 --tty \
-				 $(SERVICE)_1 entrypoint.sh ./bin/webpack-dev-server
+				 $(SERVICE)-1 entrypoint.sh ./bin/webpack-dev-server
 
 bash: #: Bash prompt on running web container
 	docker exec \
 				 --interactive \
 				 --tty \
-				 $(SERVICE)_1 entrypoint.sh bash
+				 $(SERVICE)-1 entrypoint.sh bash
 
 bash_standalone: #: Bash prompt in new container
 	docker run \
@@ -31,10 +31,10 @@ bash_standalone: #: Bash prompt in new container
 				  $(SERVICE):latest entrypoint.sh bash
 
 restart: #: Restart rails server on running web container
-	docker exec $(SERVICE)_1 touch tmp/restart.txt
+	docker exec $(SERVICE)-1 touch tmp/restart.txt
 
 migrate: #: Run rails migrations
-	docker exec $(SERVICE)_1 entrypoint.sh rails db:migrate
+	docker exec $(SERVICE)-1 entrypoint.sh rails db:migrate
 
 help: #: Show help topics
 	@grep "#:" Makefile* | grep -v "@grep" | sort | sed "s/\([A-Za-z_ -]*\):.*#\(.*\)/$$(tput setaf 3)\1$$(tput sgr0)\2/g"
