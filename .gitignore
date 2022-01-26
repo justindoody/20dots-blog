@@ -68,3 +68,5 @@ yarn-debug.log*
 /coverage/*
 
 /config/credentials/test.key
+
+/.docker-sync/*
