@@ -1,0 +1,113 @@
+@import "trix/dist/trix";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sidebar-width: 350px;
+  --medium-blue:  #4197e2;
+}
+
+@layer utilities {
+  .sidebar-width {
+    width: var(--sidebar-width);
+  }
+
+  .pl-sidebar {
+    margin-left: var(--sidebar-width);
+  }
+}
+
+.link-blue {
+    @apply underline;
+    color: #67b8ff;
+}
+
+.link-blue:hover {
+  color: #3c85c5
+}
+
+.button-blue {
+    @apply  bg-white border-solid border-4 px-4 py-1.5 rounded-3xl font-sidebar font-semibold border-gray-100 hover:border-blue-300 hover:text-blue-500 text-gray-500 transition duration-500 ease-in-out;
+}
+
+.text-shadow {
+    text-shadow: 0 0 5px rgb(66, 66, 66);
+}
+
+.blur {
+    filter: blur(12px);
+}
+
+.h-halfscreen {
+    height: 50vh;
+}
+
+.modal-background {
+    background-color: rgba(0,0,0,.4);
+}
+
+.modal-width {
+    width: calc(100% - 40px);
+    max-width: 440px;
+}
+
+.post-body {
+    p {
+        @apply py-5;
+    }
+
+    h1 {
+        @apply text-5xl;
+    }
+
+    h3, h4 {
+        font-family: "Helvetica Neue", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+        @apply pb-3 text-4xl;
+    }
+
+    h3 {
+        @apply text-gray-800 font-bold;
+    }
+
+    h4 {
+        @apply text-gray-600 font-light;
+    }
+
+    blockquote {
+        border-left: 5px solid var(--medium-blue);
+        @apply italic pl-5 my-5;
+    }
+}
+
+/* We need to override trix.css’s image gallery styles to accommodate the
+   <action-text-attachment> element we wrap around attachments. Otherwise,
+   images in galleries will be squished by the max-width: 33%; rule. */
+
+.trix-content {
+  .attachment-gallery {
+    > action-text-attachment,
+    > .attachment {
+      flex: 1 0 33%;
+      padding: 0 0.5em;
+      max-width: 33%;
+    }
+
+    &.attachment-gallery--2,
+    &.attachment-gallery--4 {
+      > action-text-attachment,
+      > .attachment {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+    }
+  }
+
+  action-text-attachment {
+    .attachment {
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+}

@@ -1,5 +1,5 @@
-import { Controller } from "stimulus"
-import debounce from 'helpers/debounce'
+import { Controller } from "@hotwired/stimulus"
+import debounce from '../helpers/debounce'
 import Rails from 'rails-ujs';
 
 export default class extends Controller {
