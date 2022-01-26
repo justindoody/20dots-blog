@@ -12,11 +12,11 @@ up: #: Spin up compose containers
                  up \
                  --build
 
-webpack_dev_server: #: Run webpack dev server
+dev_server: #: Run assets dev server
 	docker exec \
 				 --interactive \
 				 --tty \
-				 $(SERVICE)-1 entrypoint.sh ./bin/webpack-dev-server
+				 $(SERVICE)-1 entrypoint.sh ./bin/dev
 
 bash: #: Bash prompt on running web container
 	docker exec \

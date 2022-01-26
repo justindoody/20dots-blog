@@ -68,3 +68,9 @@ yarn-debug.log*
 /coverage/*
 
 /config/credentials/test.key
+
+/.docker-sync/*
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+/scratchpad/*

@@ -40,6 +40,14 @@ jobs:
         run: |
           yarn install
 
+      - name: Compile css assets
+        run: |
+          yarn build:css
+
+      - name: Compile js assets
+        run: |
+          yarn build
+
       - name: Setup test database
         env:
           RAILS_ENV: test

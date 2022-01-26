@@ -8,15 +8,12 @@ services:
     environment:
       # Make it easy to use `rails credentials:edit`
       EDITOR: nano
-      WEBPACKER_DEV_SERVER_HOST: '0.0.0.0'
     volumes:
       - .:/code
       # don't mount tmp directory
       - /code/tmp
     ports:
       - "3000:3000"
-      # For webpack-dev-server
-      - "3035:3035"
     labels:
       - "traefik.http.routers.20dots_web.rule=Host(`20dots.localhost`)"
       - "traefik.http.routers.20dots_web.entrypoints=web"
