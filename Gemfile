@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
 gem 'pg', '~> 1.2'
 gem 'puma', '~> 5.0'
 
@@ -11,6 +11,7 @@ gem 'sprockets', '~> 4.0'
 gem 'haml', '~> 5.2'
 gem 'bootsnap', require: false
 gem 'stimulus-rails'
+gem 'sprockets-rails'
 
 ### General
 gem 'friendly_id'
