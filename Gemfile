@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 gem 'pg', '~> 1.2'
 gem 'puma', '~> 5.0'
 
 ### Assets
 gem 'jsbundling-rails'
 gem 'cssbundling-rails'
-gem 'sprockets', '~> 3.0'
+gem 'sprockets', '~> 4.0'
 gem 'haml', '~> 5.2'
 gem 'bootsnap', require: false
 gem 'stimulus-rails'
