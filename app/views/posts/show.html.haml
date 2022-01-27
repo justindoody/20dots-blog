@@ -21,7 +21,7 @@
           Post Updated On
           = @post.updated_at.strftime(' %B %d, %Y')
 
-      .font-serif.text-xl.text-gray-900.leading-loose.md:pr-9
+      .prose.font-serif.text-xl.text-gray-900.leading-loose.md:pr-9.prose-a:text-blue-500.hover:prose-a:text-blue-400
         = @post.post.html_safe
 
     = render 'subscribe'

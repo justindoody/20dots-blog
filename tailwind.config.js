@@ -10,12 +10,11 @@ module.exports = {
   theme: {
     fontFamily: {
       'sidebar': ['"Avenir Next"', 'ui-sans-serif', 'system-ui'],
-      'serif': ['ui-serif', 'Georgia', 'Cambria', "Times New Roman", 'Times', 'serif']
-    },
-    extend: {
-      colors: {
-        'medium-blue': '#4197e2'
-      }
+      'serif': ['ui-serif', 'Georgia', 'Cambria', "Times New Roman", 'Times', 'serif'],
+      'sans': ["Helvetica Neue", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", 'Geneva', 'Verdana', 'sans-serif']
     }
-  }
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

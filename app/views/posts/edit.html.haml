@@ -37,7 +37,7 @@
 
         = link_to ("<i class='fa fa-trash fa-fw'></i> Delete").html_safe, post_path(@post.id), method: "delete", class: 'text-white py-2 px-5 mr-1 bg-red-500 hover:bg-red-600 rounded-lg'
 
-      .font-serif.text-xl.text-gray-900.leading-loose.md:pr-9{ data: { controller: 'post' }, 'data-post-fade-in-class' => 'opacity-40', 'data-post-fade-out-class' => 'opacity-0' }
+      .prose.font-serif.text-xl.text-gray-900.leading-loose.md:pr-9{ data: { controller: 'post' }, 'data-post-fade-in-class' => 'opacity-40', 'data-post-fade-out-class' => 'opacity-0' }
         = form_for(@post, url: post_path(@post.id), remote: true, authenticity_token: true, html: { 'data-post-target' => 'form' }) do |f|
           = f.text_field :post, { id: 'post-data', value: @post.post.html_safe, type: 'hidden', 'data-post-target' => 'content' }
           = f.text_field :title, { type: 'hidden' }

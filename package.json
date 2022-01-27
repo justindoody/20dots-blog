@@ -3,7 +3,9 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
     "@rails/actiontext": "^6.0.4-4",
+    "@tailwindcss/typography": "^0.5.0",
     "autoprefixer": "^10.4.2",
+    "cssnano": "^5.0.16",
     "esbuild": "^0.14.14",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
@@ -16,7 +18,7 @@
   },
   "packageManager": "yarn@3.1.1",
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --minify",
     "build:css": "postcss ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css"
   }
 }
