@@ -1,4 +1,4 @@
-FROM ruby:3.0.3-alpine3.15
+FROM ruby:3.2.1-alpine3.17
 
 ARG APP_PATH=/code
 
